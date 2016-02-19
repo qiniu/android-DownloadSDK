@@ -1,0 +1,73 @@
+import java.util.regex.Matcher
+
+apply plugin: 'com.android.library'
+
+def versionName() {
+    String config = 'library/src/main/java/com/example/library/download/Constants.java'
+    String fileContents = new File(config).text
+    Matcher myMatcher = fileContents =~ /VERSION = "(.+)";/
+    String version = myMatcher[0][1]
+    println(version)
+    return version
+}
+
+def versionNameToCode(String version) {
+    String v = version.replaceAll(/\./, '')
+    return v.toLong()
+}
+
+String version = versionName()
+int code = versionNameToCode(version)
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode code
+        versionName version
+    }
+
+    lintOptions {
+        warning 'InvalidPackage'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.squareup.okhttp:okhttp:2.7.2'
+    compile 'com.qiniu:happy-dns:0.2.5'
+}
+
+task releaseJar(type: Jar, dependsOn: 'build') {
+    //指定生成的jar名
+    baseName 'qiniu-android-sdk-' + version
+    //从哪里打包class文件
+    from('build/intermediates/classes/release/com/example/library/download/')
+    //打包到jar后的目录结构
+    into('com/example/library/download/')
+    //去掉不需要打包的目录和文件
+    exclude('test/', 'BuildConfig.class', 'R.class')
+    //去掉R$开头的文件
+    exclude { it.name.startsWith('R$'); }
+}
+
+android.libraryVariants.all { variant ->
+    def name = variant.buildType.name
+    def task = project.tasks.create "jar${name.capitalize()}", Jar
+    task.dependsOn variant.javaCompile
+    task.from variant.javaCompile.destinationDir
+    task.exclude '**/R.*', '**/R$*.*', '**/BuildConfig.class'
+    artifacts.add('archives', task);
+}
