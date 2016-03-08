@@ -1,16 +1,6 @@
-package com.example.library.download;
+package com.qiniu.android.download.v1;
 
-import android.util.Base64;
 import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.sql.Timestamp;
-
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  * Created by Misty on 16/2/17.

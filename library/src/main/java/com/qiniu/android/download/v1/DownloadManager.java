@@ -1,4 +1,4 @@
-package com.example.library.download;
+package com.qiniu.android.download.v1;
 
 import android.content.Context;
 
@@ -64,7 +64,7 @@ public final class DownloadManager {
         AsyncRun.run(new Runnable() {
             @Override
             public void run() {
-                FormDownloader.download(requestInfo, option, client,completionHandler);
+                FormDownloader.download(requestInfo, option, client, completionHandler);
             }
         });
     }

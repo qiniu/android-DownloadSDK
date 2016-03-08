@@ -1,6 +1,4 @@
-package com.example.library.download;
-
-import android.util.Log;
+package com.qiniu.android.download.v1;
 
 import java.util.Map;
 

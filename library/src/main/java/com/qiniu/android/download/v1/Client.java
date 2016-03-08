@@ -1,4 +1,4 @@
-package com.example.library.download;
+package com.qiniu.android.download.v1;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

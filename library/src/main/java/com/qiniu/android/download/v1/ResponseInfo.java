@@ -1,4 +1,4 @@
-package com.example.library.download;
+package com.qiniu.android.download.v1;
 
 import org.json.JSONException;
 import org.json.JSONObject;

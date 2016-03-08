@@ -1,4 +1,4 @@
-package com.example.library.download;
+package com.qiniu.android.download.v1;
 
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.MediaType;

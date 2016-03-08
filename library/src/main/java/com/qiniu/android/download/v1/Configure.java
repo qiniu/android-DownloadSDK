@@ -1,4 +1,4 @@
-package com.example.library.download;
+package com.qiniu.android.download.v1;
 
 import com.qiniu.android.dns.DnsManager;
 import com.qiniu.android.dns.IResolver;
